@@ -18,8 +18,16 @@ export default new Router({
       component: () => import('@/view/pageSetup/homeTemplate.vue')
     },
     {
+      path: "/template1",
+      component: () => import('@/view/pageSetup/homeTemplate copy.vue')
+    },
+    {
       path: "/prc",
       component: () => import('@/view/pageSetup/selectPractice.vue')
+    },
+    {
+      path: "/aa",
+      component: () => import('@/view/pageSetup/guyver.vue')
     }
   ]
 })

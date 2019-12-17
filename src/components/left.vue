@@ -83,9 +83,9 @@
       <el-submenu index="8-2">
         <span slot="title">页面管理</span>
         <el-menu-item-group>
-          <el-menu-item index="8-2-1">页面设置</el-menu-item>
+          <el-menu-item index="/template1">页面设置</el-menu-item>
           <el-menu-item index="/template">首页模板</el-menu-item>
-          <el-menu-item index="8-2-3">专题设置</el-menu-item>
+          <el-menu-item index="/aa">专题设置</el-menu-item>
           <el-menu-item index="8-2-4">页面分类</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
