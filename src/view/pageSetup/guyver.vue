@@ -40,6 +40,23 @@
   width: 100%;
   height: 100%;
 }
+.cube-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.cube-list > div {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  border: 1px solid black;
+}
+.cube-list > div > div {
+  position: absolute;
+}
+.cube_imgbox{
+  background-size:100% 100% !important; 
+}
 </style>
 <template>
   <div id="guyver" @mousemove="selecting" @mouseup="selectEnd">
@@ -78,10 +95,30 @@
             background: item.color
           }"
           @mousemove.stop
+          @mousedown.stop
+          @mouseup.stop
           @click="addImage"
         >
-          <input type="file" @change="upLoadFile" style="display:none" />
-          <img src alt />
+          <input type="file" @change="upLoadFile(index, $event)" style="display:none" />
+          <img @click="deleteImage(index, $event)" src alt />
+        </div>
+      </template>
+    </div>
+    <button @click="submit">结束</button>
+    <div class="cube-list">
+      <template v-for="cube in cubeList">
+        <div>
+          <template v-for="item in cube">
+            <div class="cube_imgbox"
+              :style="{
+              top: item.top + 'px',
+              left: item.left + 'px',
+              width: item.width + 'px',
+              height: item.height + 'px',
+              background: 'url(' + item.image + ')',
+            }"
+            ></div>
+          </template>
         </div>
       </template>
     </div>
@@ -105,7 +142,8 @@ export default {
       },
       selected: [],
       start: [],
-      cube: []
+      cube: [],
+      cubeList: []
     };
   },
   watch: {
@@ -146,8 +184,8 @@ export default {
     },
     selectEnd() {
       // 选中结束，this.selected里是本次选择的结果
-      this.start = [];
       this.pushCube();
+      this.start = [];
       this.maskStyle = {
         top: 0,
         left: 0,
@@ -158,13 +196,34 @@ export default {
     addImage(e) {
       e.currentTarget.children[0].click();
     },
-    upLoadFile(e) {
-      e.target.nextElementSibling.src = window.URL.createObjectURL(
-        e.target.files[0]
-      );
-      console.log(this.cubeImage, this.cubeIndex);
+    //上传文件
+    upLoadFile(index, e) {
+      let url = window.URL.createObjectURL(e.target.files[0]);
+      e.target.nextElementSibling.src = url;
+      this.cube[index].image = url;
+      console.log(this.cube);
+    },
+    //提交按钮
+    submit() {
+      for(let i in this.cube){
+        if(!this.cube[i].image){
+         alert('尚有格子未上传图片')
+          return false
+        }
+      }
+      this.cubeList.push(this.cube);
+      console.log(this.cube,this.cubeList)
+      this.cube = [];
+    },
+    //点击删除图片
+    deleteImage(index, e){
+      if (this.cube[index].image){
+        (this.cube[index].image = ""),(e.target.src = "");
+        e.stopPropagation()
+      }
     },
     pushCube() {
+      if (!this.start.length) return;
       let top = Math.floor(this.maskStyle.top / 100) * 100;
       let left = Math.floor(this.maskStyle.left / 100) * 100;
       let width =

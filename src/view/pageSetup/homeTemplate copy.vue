@@ -18,8 +18,28 @@
             @end="isDragging=false"
           >
             <div class="mfActive" v-for="(item,key) in listLeft" :key="key">
-              <a @click="showActive" class="mfEdit">{{item.name}}</a>
-              <a @click="removeActive" class="mfRemove">{{item.value}}</a>
+              <div class="cubeOperation">
+                <a @click="showActive" class="mfEdit">{{item.name}}</a>
+                <a @click="removeActive" class="mfRemove">{{item.value}}</a>
+              </div>
+              <div class="cube_list">
+                <template v-for="cube in cubeList">
+                  <div>
+                    <template v-for="item in cube">
+                      <div
+                        class="cube_imgbox"
+                        :style="{
+              top: item.top + 'px',
+              left: item.left + 'px',
+              width: item.width + 'px',
+              height: item.height + 'px',
+              background: 'url(' + item.image + ')',
+            }"
+                      ></div>
+                    </template>
+                  </div>
+                </template>
+              </div>
             </div>
           </draggable>
         </div>
@@ -67,12 +87,17 @@
       <div ref="cubeEdit" v-if="flag" id="cubeEdit" class="edit_area cube_edit plugin_box">
         <div class="arrow"></div>
         <div class="edit_cont">
-          <form id="mfFrom" role="form" class="form_cube" style="display:none">
+          <form id="mfFrom" role="form" class="form_cube">
             <div class="form_group cube_box">
               <div class="form_cont">
                 <div class="cube container-fluid">
-                  <div id="guyver" @mousemove="selecting" @mouseup="selectEnd">
-                    <div class="table" @mousedown.stop="selectStart" ref="table">
+                  <div id="guyver" @mousemove="selecting">
+                    <div
+                      class="table"
+                      @mousedown.stop="selectStart"
+                      @mouseup="selectEnd"
+                      ref="table"
+                    >
                       <template v-for="(itemX, x) of 4">
                         <template v-for="(itemY, y) of 4">
                           <div
@@ -107,20 +132,27 @@
             background: item.color
           }"
                           @mousemove.stop
+                          @mousedown.stop
+                          @mouseup.stop
                           @click="addImage"
                         >
-                          <input type="file" @change="upLoadFile" style="display:none" />
-                          <img src alt />
+                          <input
+                            type="file"
+                            @change="upLoadFile(index, $event)"
+                            style="display:none"
+                          />
+                          <img @click="deleteImage(index, $event)" src alt />
                         </div>
                       </template>
                     </div>
+                    <button @click="submit">结束</button>
                   </div>
                 </div>
               </div>
             </div>
           </form>
           <!-- 富文本 -->
-          <div class="edit_box">
+          <div class="edit_box" style="display:none">
             <vue-wangeditor id="editor" width="400" height="300" :menus="editorOptions.menu"></vue-wangeditor>
           </div>
         </div>
@@ -175,14 +207,13 @@ export default {
           "alignright",
           "fontfamily", // 字体
           "fontsize", // 字号
-          "head",
-          "emotion", // 表情
+          "head" // 标题
         ]
       },
       selected: [],
       start: [],
       cube: [],
-      text: { width: "400", height: "300" }
+      cubeList: []
     };
   },
   computed: {
@@ -202,12 +233,9 @@ export default {
         animation: 0,
         group: "description"
       };
-    },
-    editor() {
-      return this.$refs.myQuillEditor.quill;
     }
   },
-  created: function() {},
+  // 侦听数据
   watch: {
     maskStyle: {
       handler(newVal) {
@@ -284,11 +312,33 @@ export default {
       e.currentTarget.children[0].click();
     },
     //上传图片
-    upLoadFile(e) {
-      e.target.nextElementSibling.src = window.URL.createObjectURL(
-        e.target.files[0]
-      );
-      console.log(this.cubeImage, this.cubeIndex);
+    upLoadFile(index, e) {
+      let url = window.URL.createObjectURL(e.target.files[0]);
+      e.target.nextElementSibling.src = url;
+      this.cube[index].image = url;
+    },
+    //提交按钮
+    submit() {
+      for (let i in this.cube) {
+        if (!this.cube[i].image) {
+          alert("尚有格子未上传图片");
+          return false;
+        }
+        this.cube[i].height *= 0.75;
+        this.cube[i].width *= 0.75;
+        this.cube[i].top *= 0.75;
+        this.cube[i].left *= 0.75;
+      }
+      this.cubeList.push(this.cube);
+      console.log(this.cube, this.cubeList);
+      this.cube = [];
+    },
+    //点击删除图片
+    deleteImage(index, e) {
+      if (this.cube[index].image) {
+        (this.cube[index].image = ""), (e.target.src = "");
+        e.stopPropagation();
+      }
     },
     pushCube() {
       let top = Math.floor(this.maskStyle.top / 100) * 100;
@@ -320,6 +370,7 @@ export default {
         }
       }
       this.cube.push({ top, left, width, height, color: this.getColor() });
+      console.log(this.cube);
     },
     //获取随机颜色
     getColor() {
@@ -548,7 +599,6 @@ a {
 .mfActive {
   position: relative;
   width: 100%;
-  height: 30px;
 }
 .mfEdit,
 .mfRemove {
@@ -574,11 +624,6 @@ a {
   height: 80px;
   margin: 0 1px 1px 0;
   background: #cccccc;
-}
-
-#guyver {
-  width: 100%;
-  height: 100%;
 }
 .table {
   width: 400px;
@@ -616,5 +661,25 @@ a {
   display: block;
   width: 100%;
   height: 100%;
+}
+.cube_list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.cube_list > div {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  border: 1px solid transparent;
+}
+.cube_list > div:hover{
+  border:1px dashed;
+}
+.cube_list > div > div {
+  position: absolute;
+}
+.cube_imgbox {
+  background-size: 100% 100% !important;
 }
 </style>
