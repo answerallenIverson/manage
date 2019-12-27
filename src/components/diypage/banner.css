@@ -1,0 +1,157 @@
+.page-banner{
+  width: 100%;
+  height: 120px;
+  margin: 10px 0;
+  position: relative;
+  overflow: hidden;
+}
+.page-banner>a{
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.page-banner>a>img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.banner-1>a{
+  left: 0!important;
+}
+.banner-2>a{
+  animation-name: move2;
+  animation-duration: 4s;
+}
+.banner-3>a{
+  animation-name: move3;
+  animation-duration: 6s;
+}
+.banner-4>a{
+  animation-name: move4;
+  animation-duration: 8s;
+}
+.page-banner>a:nth-child(2){
+  animation-delay: 1s;
+}
+.page-banner>a:nth-child(3){
+  animation-delay: 3s;
+}
+.page-banner>a:nth-child(4){
+  animation-delay: 5s;
+}
+.page-banner>a:nth-child(5){
+  animation-delay: 7s;
+}
+.banner-2>a:nth-child(1), .banner-3>a:nth-child(1), .banner-4>a:nth-child(1){
+  animation-name: move1;
+  left: 0;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes move1 {
+  from{
+    left: 0;
+  }
+  to{
+    left: -100%;
+  }
+}
+@keyframes move2 {
+  0%{
+    left: 100%;
+    opacity: 1;
+  }
+  25%{
+    left: 0;
+    opacity: 1;
+  }
+  50%{
+    left: 0;
+    opacity: 1;
+  }
+  75%{
+    left: -100%;
+    opacity: 1;
+  }
+  98%{
+    left: -100%;
+    opacity: 0;
+  }
+  99%{
+    left: 100%;
+    opacity: 0;
+  }
+  100%{
+    left: 100%;
+    opacity: 1;
+  }
+}
+@keyframes move3 {
+  0%{
+    left: 100%;
+    opacity: 1;
+  }
+  16.666666%{
+    left: 0;
+    opacity: 1;
+  }
+  33.333333%{
+    left: 0;
+    opacity: 1;
+  }
+  50%{
+    left: -100%;
+    opacity: 1;
+  }
+  66.666666%{
+    left: -100%;
+    opacity: 0;
+  }
+  99%{
+    left: 100%;
+    opacity: 0;
+  }
+  100%{
+    left: 100%;
+    opacity: 1;
+  }
+}
+@keyframes move4 {
+  0%{
+    left: 100%;
+    opacity: 1;
+  }
+  12.5%{
+    left: 0;
+    opacity: 1;
+  }
+  25%{
+    left: 0;
+    opacity: 1;
+  }
+  37.5%{
+    left: -100%;
+    opacity: 1;
+  }
+  98%{
+    left: -100%;
+    opacity: 0;
+  }
+  99%{
+    left: 100%;
+    opacity: 0;
+  }
+  100%{
+    left: 100%;
+    opacity: 1;
+  }
+}

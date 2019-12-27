@@ -5,63 +5,362 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>鼠标框选效果</title>
   <style>
-    * {
-      padding: 0;
+    *{
       margin: 0;
+      padding: 0;
+      list-style: none;
     }
-
-    #bottom {
-      position: absolute;
-      bottom: 0px;
+    #page {
       width: 100%;
-      height: 40px;
-      border: 1px solid #000;
-      background: #000;
-      color: #fff;
+      height: 100%;
     }
 
-    .tempDiv {
-      border: 1px dashed blue;
-      background: #5a72f8;
+    .page-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .page-edit {
       position: absolute;
-      width: 0;
-      height: 0;
-      filter: alpha(opacity:10);
-      opacity: 0.1
+      bottom: 0;
+      width: 75px;
+      height: 25px;
+      z-index: 99;
+      color: white;
+      background: rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      right: 0;
+      border-radius: 20px;
+    }
+
+    .page-edit>div {
+      text-align: center;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .page-edit>div:hover {
+      color: #04a292;
+    }
+
+    .page-cube {
+      width: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cube-wrapper {
+      width: 320px;
+      height: 320px;
+      position: absolute;
+      left: 0;
+    }
+
+    .cube-wrapper>div {
+      position: absolute;
+    }
+
+    .page-text {
+      width: 100%;
+    }
+
+    .page-shop-0>img {
+      width: 100%;
+    }
+
+    .page-shop-1>img {
+      width: 50%;
+      height: 50%;
+    }
+
+    .page-shop-2>img {
+      width: 30%;
+    }
+
+    .page-image>img {
+      width: 100%;
+    }
+
+    .page-banner {
+      width: 100%;
+      height: 150px;
+      margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-banner>a {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+      text-decoration: none;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    .page-banner>a>img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .banner-1>a {
+      left: 0 !important;
+    }
+
+    .banner-2>a {
+      animation-name: move2;
+      animation-duration: 4s;
+    }
+
+    .banner-3>a {
+      animation-name: move3;
+      animation-duration: 6s;
+    }
+
+    .banner-4>a {
+      animation-name: move4;
+      animation-duration: 8s;
+    }
+
+    .page-banner>a:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .page-banner>a:nth-child(3) {
+      animation-delay: 3s;
+    }
+
+    .page-banner>a:nth-child(4) {
+      animation-delay: 5s;
+    }
+
+    .page-banner>a:nth-child(5) {
+      animation-delay: 7s;
+    }
+
+    .banner-2>a:nth-child(1),
+    .banner-3>a:nth-child(1),
+    .banner-4>a:nth-child(1) {
+      animation-name: move1;
+      left: 0;
+      animation-duration: 1s;
+      animation-delay: 1s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes move1 {
+      from {
+        left: 0;
+      }
+
+      to {
+        left: -100%;
+      }
+    }
+
+    @keyframes move2 {
+      0% {
+        left: 100%;
+        opacity: 1;
+      }
+
+      25% {
+        left: 0;
+        opacity: 1;
+      }
+
+      50% {
+        left: 0;
+        opacity: 1;
+      }
+
+      75% {
+        left: -100%;
+        opacity: 1;
+      }
+
+      98% {
+        left: -100%;
+        opacity: 0;
+      }
+
+      99% {
+        left: 100%;
+        opacity: 0;
+      }
+
+      100% {
+        left: 100%;
+        opacity: 1;
+      }
+    }
+
+    @keyframes move3 {
+      0% {
+        left: 100%;
+        opacity: 1;
+      }
+
+      16.666666% {
+        left: 0;
+        opacity: 1;
+      }
+
+      33.333333% {
+        left: 0;
+        opacity: 1;
+      }
+
+      50% {
+        left: -100%;
+        opacity: 1;
+      }
+
+      66.666666% {
+        left: -100%;
+        opacity: 0;
+      }
+
+      99% {
+        left: 100%;
+        opacity: 0;
+      }
+
+      100% {
+        left: 100%;
+        opacity: 1;
+      }
+    }
+
+    @keyframes move4 {
+      0% {
+        left: 100%;
+        opacity: 1;
+      }
+
+      12.5% {
+        left: 0;
+        opacity: 1;
+      }
+
+      25% {
+        left: 0;
+        opacity: 1;
+      }
+
+      37.5% {
+        left: -100%;
+        opacity: 1;
+      }
+
+      98% {
+        left: -100%;
+        opacity: 0;
+      }
+
+      99% {
+        left: 100%;
+        opacity: 0;
+      }
+
+      100% {
+        left: 100%;
+        opacity: 1;
+      }
     }
 
   </style>
   <script type="text/javascript">
-    window.onload = function () {
-      var stateBar = document.getElementById("bottom");
-      document.onmousedown = function (e) {
-        var posx = e.clientX;
-        var posy = e.clientY;
-        var div = document.createElement("div");
-        div.className = "tempDiv";
-        div.style.left = e.clientX + "px";
-        div.style.top = e.clientY + "px";
-        document.body.appendChild(div);
-        document.onmousemove = function (ev) {
-          div.style.left = Math.min(ev.clientX, posx) + "px";
-          div.style.top = Math.min(ev.clientY, posy) + "px";
-          div.style.width = Math.abs(posx - ev.clientX) + "px";
-          div.style.height = Math.abs(posy - ev.clientY) + "px";
-          stateBar.innerHTML = "MouseX: " + ev.clientX + "<br/>MouseY: " + ev.clientY;
-          document.onmouseup = function () {
-            div.parentNode.removeChild(div);
-            document.onmousemove = null;
-            document.onmouseup = null;
-          }
-        }
-      }
-    }
 
   </script>
 </head>
 
 <body>
-  <div id="bottom"></div>
+  <div data-v-69f9e1a6="" data-v-5605011b="" id="page">
+    <div data-v-69f9e1a6="" class="page-container">
+      <div data-v-69f9e1a6="" class="page-wrapper">
+        <div data-v-69f9e1a6="" class="page-cube" style="height: 240px;">
+          <div data-v-69f9e1a6="" class="cube-wrapper" style="top: 0px;">
+            <div data-v-69f9e1a6=""
+              style="top: 0px; left: 0px; width: 320px; height: 240px; background-image: url(https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg); background-color: rgb(171, 205, 239); background-size: 100% 100%;">
+            </div>
+          </div>
+        </div>
+        <div data-v-69f9e1a6="" class="page-edit">
+          <div data-v-69f9e1a6="">编辑</div>
+          <div data-v-69f9e1a6="">删除</div>
+        </div>
+      </div>
+    </div>
+    <div data-v-69f9e1a6="" class="page-container">
+      <div data-v-69f9e1a6="" class="page-wrapper">
+        <div data-v-69f9e1a6="" class="page-shop page-shop-2"><img data-v-69f9e1a6=""
+            src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""><img
+            data-v-69f9e1a6="" src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg"
+            alt=""><img data-v-69f9e1a6=""
+            src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></div>
+        <div data-v-69f9e1a6="" class="page-edit">
+          <div data-v-69f9e1a6="">编辑</div>
+          <div data-v-69f9e1a6="">删除</div>
+        </div>
+      </div>
+    </div>
+    <div data-v-69f9e1a6="" class="page-container">
+      <div data-v-69f9e1a6="" class="page-wrapper">
+        <div data-v-69f9e1a6="" class="page-slider" style="height: 16px;"></div>
+        <div data-v-69f9e1a6="" class="page-edit">
+          <div data-v-69f9e1a6="">编辑</div>
+          <div data-v-69f9e1a6="">删除</div>
+        </div>
+      </div>
+    </div>
+    <div data-v-69f9e1a6="" class="page-container">
+      <div data-v-69f9e1a6="" class="page-wrapper">
+        <div data-v-69f9e1a6="" class="page-dashed">
+          <hr data-v-69f9e1a6="" style="border: 1px dashed; line-height: 38px;">
+        </div>
+        <div data-v-69f9e1a6="" class="page-edit">
+          <div data-v-69f9e1a6="">编辑</div>
+          <div data-v-69f9e1a6="">删除</div>
+        </div>
+      </div>
+    </div>
+    <div data-v-69f9e1a6="" class="page-container">
+      <div data-v-69f9e1a6="" class="page-wrapper">
+        <div data-v-69f9e1a6="" class="page-banner banner-3"><a data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
+              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a><a
+            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
+              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a><a
+            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
+              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a> <a
+            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
+              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a></div>
+        <div data-v-69f9e1a6="" class="page-edit">
+          <div data-v-69f9e1a6="">编辑</div>
+          <div data-v-69f9e1a6="">删除</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

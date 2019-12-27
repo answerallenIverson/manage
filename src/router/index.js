@@ -10,24 +10,12 @@ export default new Router({
       component: () => import('@/view/home.vue')
     },
     {
-      path: "/user",
-      component: () => import('@/view/user/userlist.vue')
-    },
-    {
-      path: "/template",
+      path: "/homeTemplate",
       component: () => import('@/view/pageSetup/homeTemplate.vue')
     },
     {
-      path: "/template1",
-      component: () => import('@/view/pageSetup/homeTemplate copy.vue')
+      path: "/test",
+      component: () => import('@/view/pageSetup/test.vue')
     },
-    {
-      path: "/prc",
-      component: () => import('@/view/pageSetup/selectPractice.vue')
-    },
-    {
-      path: "/aa",
-      component: () => import('@/view/pageSetup/guyver.vue')
-    }
   ]
 })
