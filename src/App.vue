@@ -3,7 +3,7 @@
     <headerTop></headerTop>
     <section style="display:flex;flex:1;">
       <left></left>
-      <article style="flex:1; padding:10px;overflow-y:scroll">
+      <article style="flex:1; padding:10px;overflow:hidden">
         <el-breadcrumb separator-class="el-icon-arrow-right" style="margin:10px 0 30px 0">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
           <el-breadcrumb-item>活动管理</el-breadcrumb-item>

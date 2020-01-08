@@ -2,14 +2,101 @@
 <html>
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>鼠标框选效果</title>
   <style>
-    *{
+    * {
       margin: 0;
       padding: 0;
       list-style: none;
+      font-size: 12px;
     }
+
+
+    #page {
+      width: 100%;
+      height: 100%;
+    }
+
+    .page-container {
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .page-wrapper {
+      width: 100%;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .page-edit {
+      position: absolute;
+      bottom: 0;
+      width: 65px;
+      height: 17px;
+      z-index: 99;
+      color: white;
+      background: rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      right: 0;
+      border-radius: 20px;
+    }
+
+    .page-edit>div {
+      text-align: center;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .page-edit>div:hover {
+      color: #04a292;
+    }
+
+    .page-cube {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cube-wrapper {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+    }
+
+    .cube-wrapper>div {
+      position: absolute;
+    }
+
+    .page-text {
+      width: 100%;
+    }
+
+    .page-shop-0>img {
+      width: 100%;
+    }
+
+    .page-shop-1>img {
+      width: 50%;
+      height: 50%;
+    }
+
+    .page-shop-2>img {
+      width: 30%;
+    }
+
+    .page-image>img {
+      width: 100%;
+    }
+
     #page {
       width: 100%;
       height: 100%;
@@ -289,71 +376,39 @@
     }
 
   </style>
-  <script type="text/javascript">
-
-  </script>
 </head>
+<script type="text/javascript">
+  (function (doc, win) {
+    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        if (clientWidth >= 640) {
+          docEl.style.fontSize = '100px';
+        } else {
+          docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+        }
+      };
+
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+  })(document, window);
+
+</script>
 
 <body>
   <div data-v-69f9e1a6="" data-v-5605011b="" id="page">
     <div data-v-69f9e1a6="" class="page-container">
       <div data-v-69f9e1a6="" class="page-wrapper">
-        <div data-v-69f9e1a6="" class="page-cube" style="height: 240px;">
-          <div data-v-69f9e1a6="" class="cube-wrapper" style="top: 0px;">
-            <div data-v-69f9e1a6=""
-              style="top: 0px; left: 0px; width: 320px; height: 240px; background-image: url(https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg); background-color: rgb(171, 205, 239); background-size: 100% 100%;">
-            </div>
-          </div>
-        </div>
-        <div data-v-69f9e1a6="" class="page-edit">
-          <div data-v-69f9e1a6="">编辑</div>
-          <div data-v-69f9e1a6="">删除</div>
-        </div>
-      </div>
-    </div>
-    <div data-v-69f9e1a6="" class="page-container">
-      <div data-v-69f9e1a6="" class="page-wrapper">
-        <div data-v-69f9e1a6="" class="page-shop page-shop-2"><img data-v-69f9e1a6=""
-            src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""><img
-            data-v-69f9e1a6="" src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg"
-            alt=""><img data-v-69f9e1a6=""
-            src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></div>
-        <div data-v-69f9e1a6="" class="page-edit">
-          <div data-v-69f9e1a6="">编辑</div>
-          <div data-v-69f9e1a6="">删除</div>
-        </div>
-      </div>
-    </div>
-    <div data-v-69f9e1a6="" class="page-container">
-      <div data-v-69f9e1a6="" class="page-wrapper">
-        <div data-v-69f9e1a6="" class="page-slider" style="height: 16px;"></div>
-        <div data-v-69f9e1a6="" class="page-edit">
-          <div data-v-69f9e1a6="">编辑</div>
-          <div data-v-69f9e1a6="">删除</div>
-        </div>
-      </div>
-    </div>
-    <div data-v-69f9e1a6="" class="page-container">
-      <div data-v-69f9e1a6="" class="page-wrapper">
-        <div data-v-69f9e1a6="" class="page-dashed">
-          <hr data-v-69f9e1a6="" style="border: 1px dashed; line-height: 38px;">
-        </div>
-        <div data-v-69f9e1a6="" class="page-edit">
-          <div data-v-69f9e1a6="">编辑</div>
-          <div data-v-69f9e1a6="">删除</div>
-        </div>
-      </div>
-    </div>
-    <div data-v-69f9e1a6="" class="page-container">
-      <div data-v-69f9e1a6="" class="page-wrapper">
-        <div data-v-69f9e1a6="" class="page-banner banner-3"><a data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
-              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a><a
-            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
-              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a><a
-            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
-              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a> <a
-            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
-              src="https://b-ssl.duitang.com/uploads/item/201507/01/20150701140308_yhm8f.jpeg" alt=""></a></div>
+        <div data-v-69f9e1a6="" class="page-banner banner-4"><a data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
+              src="http://pic.17qq.com/img_qqtouxiang/88610309.jpeg" alt=""></a><a data-v-69f9e1a6="" href=""><img
+              data-v-69f9e1a6="" src="http://pic.17qq.com/img_qqtouxiang/88610309.jpeg" alt=""></a><a data-v-69f9e1a6=""
+            href=""><img data-v-69f9e1a6="" src="http://pic.17qq.com/img_qqtouxiang/88610309.jpeg" alt=""></a><a
+            data-v-69f9e1a6="" href=""><img data-v-69f9e1a6="" src="http://pic.17qq.com/img_qqtouxiang/88610309.jpeg"
+              alt=""></a> <a data-v-69f9e1a6="" href=""><img data-v-69f9e1a6=""
+              src="http://pic.17qq.com/img_qqtouxiang/88610309.jpeg" alt=""></a></div>
         <div data-v-69f9e1a6="" class="page-edit">
           <div data-v-69f9e1a6="">编辑</div>
           <div data-v-69f9e1a6="">删除</div>

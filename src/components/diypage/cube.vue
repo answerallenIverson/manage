@@ -143,7 +143,8 @@ export default {
         colE: 0
       },
       start: [],
-      cubeWidth: 80
+      cubeWidth: 80,
+      focusIndex: -1
     };
   },
   watch: {
@@ -205,16 +206,14 @@ export default {
         cube.image = "";
         this.$set(this.content.data.list, index, cube);
       } else {
-        e.currentTarget.children[0].click();
+        this.focusIndex = index
+        this.$emit("addImg")
       }
     },
-    upLoadFile(index, e) {
-      let url = window.URL.createObjectURL(e.target.files[0]);
-      let cube = this.content.data.list[index];
-      cube.image = url;
-      this.$set(this.content.data.list, index, cube);
-      this.$emit("say");
-      console.log(this.content);
+    upLoadFile(imgList) {
+      let cube = this.content.data.list[this.focusIndex];
+      cube.image = imgList.length == 1 ? imgList[0] : imgList;
+      this.$set(this.content.data.list, this.focusIndex, cube);
     },
     //点击删除图片
     deleteCube(index) {

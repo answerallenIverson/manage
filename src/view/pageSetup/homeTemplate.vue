@@ -1,108 +1,119 @@
 <template>
-  <div>
-    <div class="ip_pre">
-      <div class="ip_head"></div>
-      <div ref="ipBody" class="ip_body">
-        <div class="wx_head">
-          <h1>鹊巢生活家</h1>
+  <div id="editor">
+    <div class="edit-wrapper">
+      <div class="ip_pre">
+        <div class="ip_head"></div>
+        <div ref="ipBody" class="ip_body">
+          <div class="wx_head">
+            <h1>鹊巢生活家</h1>
+          </div>
+          <div class="content">
+            <diy-page ref="page" :options="pageOptions"></diy-page>
+          </div>
         </div>
-        <div class="content">
-          <diy-page ref="page" :options="pageOptions"></diy-page>
-        </div>
-      </div>
 
-      <div class="plugin_add">
-        <h4>添加模块</h4>
-        <div class="plugin_list container-fluid" style="margin-bottom:30px;">
-          <div class="row">
-            <!-- 魔方 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('cube')">魔方</a>
-            </div>
-            <!-- 文字 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('text')">文字</a>
-            </div>
-            <!-- 商品 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('shop')">商品</a>
-            </div>
-            <!-- 图片 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('image')">图片</a>
-            </div>
-            <!-- 轮播广告 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('banner')">轮播广告</a>
-            </div>
-            <!-- 空白占位 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('slider')">空白占位</a>
-            </div>
-            <!-- 分割线 -->
-            <div class="col-xs-6">
-              <a href="javascript:;" @click="addItem('dashed')">分割线</a>
-            </div>
-            <!-- 图片导航 -->
-            <div class="col-xs-6">
-              <a href="javascript:;">图片导航</a>
+        <div class="plugin_add">
+          <h4>添加模块</h4>
+          <div class="plugin_list container-fluid" style="margin-bottom:30px;">
+            <div class="row">
+              <!-- 魔方 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('cube')">魔方</a>
+              </div>
+              <!-- 文字 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('text')">文字</a>
+              </div>
+              <!-- 商品 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('shop')">商品</a>
+              </div>
+              <!-- 图片 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('image')">图片</a>
+              </div>
+              <!-- 轮播广告 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('banner')">轮播广告</a>
+              </div>
+              <!-- 空白占位 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('slider')">空白占位</a>
+              </div>
+              <!-- 分割线 -->
+              <div class="col-xs-6">
+                <a href="javascript:;" @click="addItem('dashed')">分割线</a>
+              </div>
+              <!-- 图片导航 -->
+              <div class="col-xs-6">
+                <a href="javascript:;">图片导航</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="setting">
-        <div class="upLoad">
-          <el-button type="primary" size="mini" round @click="saveAllMod">立即发布</el-button>
+        <div class="setting">
+          <div class="upLoad">
+            <el-button type="primary" size="mini" round @click="saveAllMod">立即发布</el-button>
+          </div>
+          <div class="save">
+            <el-button type="primary" size="mini" round @click="save">保存草稿</el-button>
+          </div>
         </div>
-        <div class="save">
-          <el-button type="primary" size="mini" round @click="save">保存草稿</el-button>
-        </div>
-      </div>
 
-      <!-- 右边设置区域 -->
-      <div v-show="pageOptions.method" class="edit_area" :style="{top: pageOptions.editTop + 'px'}">
-        <diy-cube
-          v-if="pageOptions.method == 'cube'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-cube>
-        <diy-text
-          v-else-if="pageOptions.method == 'text'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-text>
-        <diy-shop
-          v-else-if="pageOptions.method == 'shop'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-shop>
-        <diy-image
-          v-else-if="pageOptions.method == 'image'"
-          @addImg="editCover='img'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-image>
-        <diy-banner
-          v-else-if="pageOptions.method == 'banner'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-banner>
-        <diy-slider
-          v-else-if="pageOptions.method == 'slider'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-slider>
-        <diy-dashed
-          v-else-if="pageOptions.method == 'dashed'"
-          :content="pageOptions.content[pageOptions.pageIndex]"
-          @submit="addItem('')"
-        ></diy-dashed>
+        <!-- 右边设置区域 -->
+        <div
+          v-show="pageOptions.method"
+          class="edit_area"
+          :style="{top: pageOptions.editTop + 'px'}"
+        >
+          <diy-cube
+            ref="cube"
+            v-if="pageOptions.method == 'cube'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+            @addImg="editCover='addimg'"
+          ></diy-cube>
+          <diy-text
+            v-else-if="pageOptions.method == 'text'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+          ></diy-text>
+          <diy-shop
+            v-else-if="pageOptions.method == 'shop'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+            @addImg="editCover='addimg'"
+          ></diy-shop>
+          <diy-image
+            ref="image"
+            v-else-if="pageOptions.method == 'image'"
+            @addImg="editCover='addimg'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+          ></diy-image>
+          <diy-banner
+            ref="banner"
+            v-else-if="pageOptions.method == 'banner'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+            @addImg="editCover='addimg'"
+          ></diy-banner>
+          <diy-slider
+            v-else-if="pageOptions.method == 'slider'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+          ></diy-slider>
+          <diy-dashed
+            v-else-if="pageOptions.method == 'dashed'"
+            :content="pageOptions.content[pageOptions.pageIndex]"
+            @submit="addItem('')"
+          ></diy-dashed>
+        </div>
       </div>
     </div>
-
-    <div class="edit-cover" v-show="editCover" @click="editCover=''">
-      <div class="img-cover" v-show="editCover=='img'"></div>
+    <div class="edit-cover" v-show="editCover">
+      <img-cover v-show="editCover=='addimg'" @save="save" @quit="editCover=''"></img-cover>
     </div>
   </div>
 </template>
@@ -115,6 +126,7 @@ import diyShop from "@/components/diypage/shop";
 import diyBanner from "@/components/diypage/banner";
 import diySlider from "@/components/diypage/slider";
 import diyDashed from "@/components/diypage/dashed";
+import imgCover from "@/components/dialog";
 export default {
   components: {
     diyPage,
@@ -125,6 +137,7 @@ export default {
     diyBanner,
     diySlider,
     diyDashed,
+    imgCover
   },
   data() {
     return {
@@ -155,7 +168,10 @@ export default {
       });
       console.log(this.$refs.page.container);
     },
-    save() {},
+    save(imgList) {
+      this.$refs[this.pageOptions.method].upLoadFile(imgList);
+      this.editCover = "";
+    },
     addItem(method) {
       if (this.testCube()) return;
       this.pageOptions.method = method;
@@ -211,7 +227,7 @@ export default {
             type: "dashed",
             data: {}
           }),
-          this.pageOptions.method= "";
+            (this.pageOptions.method = "");
           break;
         default:
           return;
@@ -251,6 +267,20 @@ a {
   text-decoration: none;
   outline: none;
 }
+#editor {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.edit-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .ip_pre {
   position: relative;
   width: 350px;
@@ -258,6 +288,7 @@ a {
   background: #fff;
   margin: 30px;
   border-radius: 18px 18px 0 0;
+  margin-bottom: 200px;
 }
 .ip_head {
   height: 70px;
@@ -381,25 +412,14 @@ a {
   border-radius: 3px;
   cursor: pointer;
 }
-.edit-cover {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 399;
-  background: rgba(0, 0, 0, 0.3);
-}
-.edit-cover > div {
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-}
 .setting {
   margin-bottom: 10px;
 }
 .upLoad,
 .save {
   display: inline-block;
+}
+.edit-cover >>> .el-dialog__wrapper {
+  background: rgba(0, 0, 0, 0.4);
 }
 </style>

@@ -41,7 +41,6 @@
       </div>
       <div class="banner_chooseimg">
         <el-button type="primary" size="mini" @click="editImage">选择图片</el-button>
-        <input type="file" style="display: none" ref="ipt" @change="upLoadFile" />
       </div>
       <div class="banner_node">
         <p>建议图片宽度: 640px 支持图片格式: jpg,jpeg,png,bmp,gif</p>
@@ -128,21 +127,20 @@ export default {
   },
   methods: {
     editImage() {
-      this.$refs.ipt.click();
+      this.$emit("addImg");
     },
-    upLoadFile(e) {
-      if (e.target.files[0]) {
-        let url = window.URL.createObjectURL(e.target.files[0]);
-        if (this.content.data.list.length < 5) {
+    upLoadFile(imgList) {
+      console.log(imgList)
+      let url = imgList
+      if (this.content.data.list.length < 4) {
           this.content.data.list.push({
             link: "",
             image: url,
             height:370,
           })
         }else{
-          
+          alert("最多选择4张哦")
         }
-      }
     },
     deleteItem(index) {
       this.content.data.list.splice(index, 1);

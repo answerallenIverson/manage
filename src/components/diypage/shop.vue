@@ -23,7 +23,7 @@
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
           :on-success="handleSuccess"
-          :limit=4
+          :limit="4"
         >
           <i class="el-icon-plus"></i>
         </el-upload>
@@ -32,7 +32,9 @@
         </el-dialog>
       </div>
       <div class="shop_nodes">
-        <p><i class="el-icon-warning"></i>请选择商品，最多只能选择四个</p>
+        <p>
+          <i class="el-icon-warning"></i>请选择商品，最多只能选择四个
+        </p>
       </div>
       <div class="shop_end">
         <el-button @click="editSubmit" size="mini" round>提交</el-button>
@@ -64,18 +66,18 @@ export default {
   methods: {
     shopSubmit() {},
     handleRemove(file) {
-      for(let i = 0; i < this.content.data.list.length; i++){
-        if(this.content.data.list[i].uid == file.uid){
-          this.content.data.list.splice(i, 1)
+      for (let i = 0; i < this.content.data.list.length; i++) {
+        if (this.content.data.list[i].uid == file.uid) {
+          this.content.data.list.splice(i, 1);
         }
       }
-      console.log(this.content.data)
+      console.log(this.content.data);
     },
-    handleSuccess(res, file){
+    handleSuccess(res, file) {
       this.content.data.list.push({
         uid: file.uid,
         url: file.url
-      })
+      });
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -84,6 +86,17 @@ export default {
     editSubmit() {
       this.$emit("submit");
     },
+    editImage(index, e) {
+      console.log(1)
+      if (this.content.data.list[index].image) {
+        let cube = this.content.data.list[index];
+        cube.image = "";
+        this.$set(this.content.data.list, index, cube);
+      } else {
+        this.focusIndex = index;
+        this.$emit("addImg");
+      }
+    }
   }
 };
 </script>
@@ -107,12 +120,12 @@ export default {
   line-height: 50px;
   padding-left: 34px;
 }
-.shop_choose_shops >>> .el-upload--picture-card{
+.shop_choose_shops >>> .el-upload--picture-card {
   width: 80px;
   height: 80px;
   line-height: 80px;
 }
-.shop_choose_shops >>> .el-upload-list__item{
+.shop_choose_shops >>> .el-upload-list__item {
   width: 80px;
   height: 80px;
 }
@@ -139,5 +152,4 @@ export default {
   float: left;
   width: 100%;
 }
-
 </style>
